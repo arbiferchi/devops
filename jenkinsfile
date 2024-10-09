@@ -1,0 +1,20 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout GIT') {
+            steps {
+                echo 'Pulling...'
+                git branch: 'main',
+                    url: 'https://github.com/arbiferchi/devops.git',
+                    credentialsId: 'GithubToken' // Ensure this is correct
+            }
+        }
+        stage('Compile') {
+            steps {
+                sh 'mvn compile' // No directory change if pom.xml is in the root
+            }
+        }
+       
+    }
+}
